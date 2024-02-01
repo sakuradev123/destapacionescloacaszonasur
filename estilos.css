@@ -1,6 +1,11 @@
 :root {
     --rojo: #eee --fondo: #222
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 img{
     width: 100%;
@@ -22,54 +27,36 @@ p {
     /* Asegura que el contenido no quede oculto por el margen superior negativo */
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 html {
     scroll-behavior: smooth;
     font-family: 'Bebas Neue';
 }
 
 body {
+    background-position-x: 50%;
+    background-position-y: 50%;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+    background-image: linear-gradient(#02158d, #02158d);
     text-transform: uppercase;
     font-size: 16px;
     color: #b70817;
-    /* background: url(gota-agua.png); */
-    /* background-size: auto; */
-    /* background-repeat: no-repeat; */
-    /* background-position: center; */
-}
-
-/* div de prueba */
-.test {
-    background-color: #b70817;
-    /* position: sticky; */
-    top: 0;
-    text-align: center;
-    /* z-index: 1; */
-    font-size: 3rem;
-    height: 3em;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* NAV */
 nav {
     background-color: #b70817;
-    /* position: sticky; */
     top: 0;
     text-align: center;
-    /* z-index: 1; */
-    /* font-size: xxx-large; */
-    /* height: 3em; */
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    /* margin-bottom: 1000px; */
+    margin-top: 10em;
+    padding-top: 5em;
 }
 
 nav ul {
@@ -123,33 +110,19 @@ nav ul li a:visited {
 /* FIN NAV */
 
 .contenedor {
-    /* background-color: #0573ce; */
     width: 95%;
     margin: auto;
 }
 
 header {
-    /* position: relative; */
-    /* z-index: 1; */
+    background-color: white;
     text-align: center;
     font-variant: all-petite-caps;
-    /* background-color: #5099f1; */
     background-image: url(gota-agua.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
-
-.contenido-principal {
-    /* padding-top: 40px;
-    padding-bottom: 40px; */
-    /* background: linear-gradient(rgb(51 51 51) 15%, #1a73e8 100%); */
-    /* background-position: center, center; */
-    /* background-size: cover; */
-    /* background-repeat: no-repeat; */
-    min-height: 20.345em;
-}
-
 
 main {
     color: white;
@@ -185,33 +158,11 @@ footer img {
     height: 2em;
     text-decoration: none;
     margin-top: auto;
-    /* margin-bottom: -7px; */
 }
 
 footer a {
     text-decoration: none;
-    /* font-size: 1.69em; */
     color: white;
-}
-
-.box_logo {
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    background-color: #02158d;
-    width: 50%;
-    height: 11em;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.box_logo p {
-    font-size: x-large;
-    /* color: black; */
-}
-
-.box_logo img {
-    height: 150px;
 }
 
 .box_footer {
@@ -229,8 +180,7 @@ footer a {
 }
 
 /* selected link */
-@media screen and (max-width: 600px) {
-
+/* @media screen and (max-width: 600px) {
     .scroll-section {
         margin-top: -7rem;
         padding-top: 7rem;
@@ -239,57 +189,20 @@ footer a {
 
 /* Media querys */
 /* @media screen and (max-width: 767px) {
-    .servicio a.boton {
-        width: 100%;
-
-        display: block;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        /* aspect-ratio: 1 / 1;
-    }
-
-} */
+    
+} */ 
 
 /* @media screen and (min-width:1024px) {
 
 } */
 
-
-/* Estilos para el botÃƒÆ’Ã‚Â³n "Subir" */
-.scroll-to-top {
-    display: none;
-    /* Inicialmente oculto */
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    /* background-color: #007bff; */
-    /* Color de fondo */
-    color: #fff;
-    /* Color del texto */
-    border-radius: 50%;
-    /* Hacerlo circular */
-    padding: 10px 15px;
-    text-align: center;
-    cursor: pointer;
-    z-index: 1000;
-    /* Asegura que estÃƒÆ’Ã‚Â© encima de otros elementos */
-}
-
-/* Estilos al pasar el mouse por encima del botÃƒÆ’Ã‚Â³n */
-.scroll-to-top:hover {
-    background-color: #d6694b;
-    /* Cambia el color de fondo al pasar el mouse por encima */
-}
-
 .button {
     border: none;
-    /* color: white; */
     padding: 30px 60px;
     text-align: center;
     text-decoration: none;
     display: block;
     font-size: 20px;
-    /* margin: 4px 2px; */
     transition-duration: 0.4s;
     cursor: pointer;
     font-variant: normal;
@@ -297,14 +210,7 @@ footer a {
 
 .button1 {
     background-color: #b70817;
-    /* border-radius: 0.4em; */
     color: white;
-    /* background-color: white; */
-}
-
-.button2 {
-    background-color: white;
-    color: black;
 }
 
 .button1:hover {
@@ -323,7 +229,6 @@ footer a {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    /* border-radius: 5px; */
     border-radius: 0.4em;
     text-decoration: none;
     margin-bottom: -10px;
@@ -338,14 +243,7 @@ footer a {
     margin-left: 0.5em;
 }
 
-/* Complemento del contenido principal */
-.contenido-principal-complemento {
-    width: 62%;
-    margin-left: auto;
-    margin-right: auto;
-}
 .img-servicios{
-    /* background-color: aqua; */
     width: 7em;
     height: 10em;
     text-align: center;
