@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Información de tasas de cambio de criptomonedas que aceptamos ingresando el importe a abonar">
-    <meta name="keywords" content="destapaciones, cloacas, cloacales, zona sur">
+        content="Información de las cotizaciones cripto que tomamos para abonar destapaciones de cañerías, cloacas y desagües de cloacas en la zona sur de Buenos Aires.">
+    <meta name="keywords" content="destapaciones, cañerias, precios, cripto, cloacas, cloacales, zona sur">
     <meta name="robots" content="index, follow">
     <meta name="author" content="destapacionescloacaszonasur.com.ar">
 
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <title>Servicios de destapaciones de cloacas | Cotizacion de las criptomonedas acpetadas</title>
+    <title>Servicios de destapaciones | Cotizacion de las criptomonedas acpetadas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="../estilos.css">
@@ -43,10 +43,10 @@
     <nav>
         <ul>
             <li>
-                <a href="#servicios"></a>
+                <a href="../index.html">Volver al inicio</a>
             </li>
             <li>
-                <a href="#contacto"></a>
+                <a href="#contacto">1144305694</a>
             </li>
         </ul>
     </nav>
@@ -56,7 +56,7 @@
     <header>
         <div class="contenedor">
             <div id="contacto">
-                <h1>¿Abonas con criptomonedas?<br> Mire a continuacion a que tasa de cambio las tomamos</h1>
+                <h1>¿Abonas con criptomonedas?<br> Mire a continuación a que tasa de cambio las tomamos</h1>
                 <p style="font-size: xxx-large"></p>
                 <p></p>
                 <div class="button button1"></div>
@@ -72,9 +72,11 @@
 
             <div class="content">
                 <h1>Precios de Criptomonedas</h1>
-                <label for="monto">Monto a Abonar:</label>
-                <input type="number" id="monto" name="monto">
-                <button onclick="calcular()">Calcular</button>
+                <div style="width: 100%; height: auto;">
+                    <label for="monto" style="font-size: 3em;">Monto a Abonar:</label>
+                    <input type="number" id="monto" name="monto" style="font-size: 2em;width: 100%;">
+                    <button onclick="calcular()" style="font-size: 2em;margin: 1em;padding: 1em;">Calcular</button>
+                </div>
                 <div id="precios"></div>
             </div>
 
@@ -88,7 +90,7 @@
         <div class="contenedor">
             <div class="separador_box_footer">
                 <img src="../logo.jpg" alt="logotipo">
-                <a href="www.destapacionescloacaszonasur.com.ar">destapacionescloacaszonasur.com.ar</a>
+                <a href="../index.html">destapacionescloacaszonasur.com.ar</a>
             </div>
             <div class="separador_box_footer">
                 <i class="fa fa-facebook" style="width: 2em;height: 2em;background-color: #ffffff;padding: 1em;"></i>
@@ -123,25 +125,25 @@
 
             if (exchange.toLowerCase() === "all") {
                 const orderedData = Object.entries(data)
-                    .filter(([exchange, {totalAsk, totalBid}]) => totalAsk !== 0 && totalBid !== 0)
-                    .map(([exchange, {ask, totalAsk, bid, totalBid, time}]) => ({exchange, ask, totalAsk, bid, totalBid, time}));
+                    .filter(([exchange, { totalAsk, totalBid }]) => totalAsk !== 0 && totalBid !== 0)
+                    .map(([exchange, { ask, totalAsk, bid, totalBid, time }]) => ({ exchange, ask, totalAsk, bid, totalBid, time }));
 
                 let numeroPromedio;
                 if (operation.toLowerCase() === "buy") {
                     orderedData.sort((a, b) => a.totalAsk - b.totalAsk);
-                    numeroPromedio = orderedData.slice(0, 10).reduce((acc, {totalAsk}) => acc + totalAsk, 0) / 10;
+                    numeroPromedio = orderedData.slice(0, 10).reduce((acc, { totalAsk }) => acc + totalAsk, 0) / 10;
                 } else if (operation.toLowerCase() === "sell") {
                     orderedData.sort((a, b) => b.totalBid - a.totalBid);
-                    numeroPromedio = orderedData.slice(0, 10).reduce((acc, {totalBid}) => acc + totalBid, 0) / 10;
+                    numeroPromedio = orderedData.slice(0, 10).reduce((acc, { totalBid }) => acc + totalBid, 0) / 10;
                 }
 
-                console.log(`Precio promedio: ${numeroPromedio} de los primeros 10 exchanges`);
-                return {orderedData, numeroPromedio};
+                //console.log(`Precio promedio: ${numeroPromedio} de los primeros 10 exchanges`);
+                return { orderedData, numeroPromedio };
             } else {
                 const exchangeData = data[exchange.toLowerCase()];
                 if (!exchangeData) {
-                    console.log("El exchange no está en la lista de exchanges");
-                    console.log(`Exchanges disponibles: ${exchanges}`);
+                    //console.log("El exchange no está en la lista de exchanges");
+                    //console.log(`Exchanges disponibles: ${exchanges}`);
                     return null;
                 }
                 return exchangeData;
@@ -165,6 +167,10 @@
         const montoFiatPagado = document.getElementById('monto').value;
         if (!montoFiatPagado) {
             alert('Por favor ingresa el monto a abonar.');
+            return;
+        }
+        if (montoFiatPagado <= 0) {
+            alert('Por favor ingresa un monto mayor a cero.');
             return;
         }
 
