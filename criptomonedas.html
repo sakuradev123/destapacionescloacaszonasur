@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Información de las cotizaciones cripto que tomamos para abonar destapaciones de cañerías, cloacas y desagües de cloacas en la zona sur de Buenos Aires.">
+    <meta name="keywords" content="destapaciones, cañerias, precios, cripto, cloacas, cloacales, zona sur">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="destapacionescloacaszonasur.com.ar">
+
+    <link rel="icon" type="image/x-icon" href="../logo.jpg">
+    <title>Servicios de destapaciones | Cotizacion de las criptomonedas acpetadas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="../estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+
+    <meta name="theme-color" content="#b70817">
+
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Website",
+          "name": "destapacionescloacaszonasur.com.ar",
+          "url": "http://www.destapacionescloacaszonasur.com.ar",
+          "logo": "http://www.destapacionescloacaszonasur.com.ar/logo.png",
+          "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+541144305694",
+            "contactType": "destapacionescloacaszonasur.com.ar"
+          }]
+        }
+    </script>
+</head>
+<!-- BODY -->
+
+<body>
+    <a class="button-flotante" href="#">Top de Página</a>
+
+    <!-- NAV -->
+    <nav>
+        <ul>
+            <li>
+                <a href="../index.html">Volver al inicio</a>
+            </li>
+            <li>
+                <a href="#contacto">1144305694</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- FIN NAV -->
+
+    <!-- HEADER  -->
+    <header>
+        <div class="contenedor">
+            <div id="contacto">
+                <h1>¿Abonas con criptomonedas?<br> Mire a continuación a que tasa de cambio las tomamos</h1>
+                <p style="font-size: xxx-large"></p>
+                <p></p>
+                <div class="button button1"></div>
+                <div class="button button1"></div>
+            </div>
+        </div>
+    </header>
+    <!-- FIN HEADER -->
+
+    <!-- MAIN -->
+    <main>
+        <div class="contenedor">
+
+            <div class="content">
+                <h1>Precios de Criptomonedas</h1>
+                <div style="width: 100%; height: auto;">
+                    <label for="monto" style="font-size: 3em;">Monto a Abonar:</label>
+                    <input type="number" id="monto" name="monto" style="font-size: 2em;width: 100%;">
+                    <button onclick="calcular()" style="font-size: 2em;margin: 1em;padding: 1em;">Calcular</button>
+                </div>
+                <div id="precios"></div>
+            </div>
+
+        </div>
+    </main>
+    <!-- FIN MAIN -->
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- Pie de página de tu sitio web aquí -->
+        <div class="contenedor">
+            <div class="separador_box_footer">
+                <img src="../logo.jpg" alt="logotipo">
+                <a href="../index.html">destapacionescloacaszonasur.com.ar</a>
+            </div>
+            <div class="separador_box_footer">
+                <i class="fa fa-facebook" style="width: 2em;height: 2em;background-color: #ffffff;padding: 1em;"></i>
+                <a href="https://www.facebook.com/destapacionescloacaszonasur">Facebook</a>
+            </div>
+            <div class="separador_box_footer">
+                <i class="fa fa-instagram" style="width: 2em;height: 2em;background-color: #ffffff;padding: 1em;"></i>
+                <a href="https://www.instagram.com/destapacionesdecloacaszonasur">Instagram</a>
+            </div>
+            <div class="separador_box_footer">
+                <i class="fa fa-keyboard-o" style="width: 2em;height: 2em;background-color: #ffffff;padding: 1em;"></i>
+                <a href="https://www.facebook.com/non.professional.programmer/">Sitio web realizado por: A non
+                    professional programmer</a>
+            </div>
+        </div>
+
+    </footer>
+    <!-- FIN FOOTER -->
+
+</body>
+
+<script>
+    async function obtenerPreciosCriptoya(exchange, cripto, fiat, operation) {
+        const url = `https://criptoya.com/api/${cripto}/${fiat}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Error al obtener los precios de criptomonedas');
+            }
+            const data = await response.json();
+            const exchanges = Object.keys(data);
+
+            if (exchange.toLowerCase() === "all") {
+                const orderedData = Object.entries(data)
+                    .filter(([exchange, { totalAsk, totalBid }]) => totalAsk !== 0 && totalBid !== 0)
+                    .map(([exchange, { ask, totalAsk, bid, totalBid, time }]) => ({ exchange, ask, totalAsk, bid, totalBid, time }));
+
+                let numeroPromedio;
+                if (operation.toLowerCase() === "buy") {
+                    orderedData.sort((a, b) => a.totalAsk - b.totalAsk);
+                    numeroPromedio = orderedData.slice(0, 10).reduce((acc, { totalAsk }) => acc + totalAsk, 0) / 10;
+                } else if (operation.toLowerCase() === "sell") {
+                    orderedData.sort((a, b) => b.totalBid - a.totalBid);
+                    numeroPromedio = orderedData.slice(0, 10).reduce((acc, { totalBid }) => acc + totalBid, 0) / 10;
+                }
+
+                //console.log(`Precio promedio: ${numeroPromedio} de los primeros 10 exchanges`);
+                return { orderedData, numeroPromedio };
+            } else {
+                const exchangeData = data[exchange.toLowerCase()];
+                if (!exchangeData) {
+                    //console.log("El exchange no está en la lista de exchanges");
+                    //console.log(`Exchanges disponibles: ${exchanges}`);
+                    return null;
+                }
+                return exchangeData;
+            }
+        } catch (error) {
+            console.error('Error al obtener los precios de criptomonedas:', error);
+            return null;
+        }
+    }
+
+    function calcularFiatCripto(montoFiat, precioCripto) {
+        return montoFiat / precioCripto;
+    }
+
+    async function calcular() {
+        const exchange = "all"; // Exchange
+        const criptos = ['USDT', 'BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'AVAX', 'TRX', 'LINK', 'DOT', 'MATIC', 'LTC', 'EOS', 'XLM', 'ALGO']; // Criptomonedas
+        const fiat = 'ars';   // Código de moneda fiduciaria (Pesos argentinos)
+        const operation = "sell"; // o "buy"
+
+        const montoFiatPagado = document.getElementById('monto').value;
+        if (!montoFiatPagado) {
+            alert('Por favor ingresa el monto a abonar.');
+            return;
+        }
+        if (montoFiatPagado <= 0) {
+            alert('Por favor ingresa un monto mayor a cero.');
+            return;
+        }
+
+        let preciosDivContent = '<h2>Tasas de cambio y calculos por el monto a pagar de criptomonedas aceptadas</h2>';
+
+        for (let i = 0; i < criptos.length; i++) {
+            const cripto = criptos[i];
+            const preciosCriptoya = await obtenerPreciosCriptoya(exchange, cripto, fiat, operation);
+
+            if (preciosCriptoya) {
+                const cantidadCripto = calcularFiatCripto(montoFiatPagado, preciosCriptoya.numeroPromedio);
+                preciosDivContent += `
+                    <p>Precio de ${cripto}: ${preciosCriptoya.numeroPromedio} ${fiat} por: ${cripto}</p>
+                    <p>Tomamos la cantidad de ${cripto}: ${cantidadCripto.toFixed(8)} por: ${montoFiatPagado} ${fiat}</p>
+                    <p>----------------------------<p>
+                    <br>
+                `;
+            } else {
+                preciosDivContent += `<p>Error: No se pudo obtener los precios de ${cripto}.</p>`;
+            }
+        }
+
+        const preciosDiv = document.getElementById('precios');
+        preciosDiv.innerHTML = preciosDivContent;
+    }
+</script>
